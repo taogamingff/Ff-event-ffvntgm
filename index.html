@@ -1,1 +1,2903 @@
+<!DOCTYPE html>
+<html lang="vi" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta name="theme-color" content="#040d1f">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="FF Events">
 
+    <title>FF SỰ KIỆN & CẬP NHẬT</title>
+
+    <link rel="icon" type="image/png" href="./icon.png">
+    <link rel="apple-touch-icon" href="./icon.png">
+    <link rel="manifest" href="./manifest.json">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Orbitron:wght@500;600;700;800;900&display=swap');
+
+        :root {
+            --bg: #030914;
+            --bg-2: #061426;
+            --card: rgba(8, 25, 48, 0.88);
+            --card-2: #091c35;
+
+            --accent: #4a78c2;
+            --accent-light: #6ea8ff;
+            --green: #00e676;
+            --green-dark: #00c853;
+            --gold: #ffd700;
+
+            --text: #eef5ff;
+            --muted: #9bb2cf;
+
+            --border: rgba(255,255,255,.09);
+            --border-hover: rgba(110,168,255,.45);
+
+            --radius: 18px;
+            --max-width: 1200px;
+        }https://cdn.upanhlaylink.com/i/NuXM0SFQ.jpg
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Rajdhani', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            min-height: 100vh;
+            color: var(--text);
+
+            background:
+                radial-gradient(circle at 50% -10%, rgba(74,120,194,.20), transparent 35%),
+                radial-gradient(circle at 0% 30%, rgba(0,230,118,.05), transparent 30%),
+                linear-gradient(180deg, var(--bg), var(--bg-2));
+
+            overflow-x: hidden;
+
+            padding:
+                max(25px, env(safe-area-inset-top))
+                max(12px, env(safe-area-inset-right))
+                max(35px, env(safe-area-inset-bottom))
+                max(12px, env(safe-area-inset-left));
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            background-image:
+                linear-gradient(rgba(255,255,255,.015) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,.015) 1px, transparent 1px);
+            background-size: 35px 35px;
+            mask-image: linear-gradient(to bottom, black, transparent 75%);
+            z-index: -1;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        .header-container {
+            width: 100%;
+            max-width: var(--max-width);
+            margin: 0 auto 28px;
+            text-align: center;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            animation: headerIn .6s ease;
+        }
+
+        @keyframes headerIn {
+            from {
+                opacity: 0;
+                transform: translateY(-12px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* =========================
+           TITLE - ĐÃ CHỈNH FONT/MÀU
+        ========================= */
+
+        .main-title {
+            position: relative;
+
+            font-family: 'Orbitron', sans-serif;
+
+            font-size: clamp(1.05rem, 4vw, 1.65rem);
+
+            line-height: 1.25;
+
+            font-weight: 900;
+
+            letter-spacing: clamp(1px, .7vw, 3.5px);
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #ffffff 0%,
+                    #62a8ff 22%,
+                    #ffffff 42%,
+                    #00e676 62%,
+                    #7ab7ff 82%,
+                    #ffffff 100%
+                );
+
+            background-size: 300% auto;
+
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+
+            text-shadow:
+                0 0 12px rgba(74,120,194,.22);
+
+            animation:
+                titleShine 4s linear infinite,
+                titleFloat 3s ease-in-out infinite;
+            
+            text-transform: uppercase;
+        }
+
+        .main-title::after {
+            content: "";
+
+            position: absolute;
+
+            left: 50%;
+            bottom: -8px;
+
+            width: 58%;
+            height: 2px;
+
+            transform: translateX(-50%);
+
+            background:
+                linear-gradient(
+                    90deg,
+                    transparent,
+                    #4a78c2,
+                    #00e676,
+                    #4a78c2,
+                    transparent
+                );
+
+            box-shadow:
+                0 0 10px rgba(0,230,118,.45);
+
+            border-radius: 10px;
+        }
+
+        @keyframes titleShine {
+            to {
+                background-position: 300% center;
+            }
+        }
+
+        @keyframes titleFloat {
+            0%, 100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-2px);
+            }
+        }
+
+        /* =========================
+           MAIN
+        ========================= */
+
+        #mainView {
+            width: 100%;
+            max-width: var(--max-width);
+            margin: 0 auto;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* =========================
+           SERVER GRID
+        ========================= */
+
+        .region-grid {
+            width: 100%;
+            max-width: 950px;
+
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+
+            gap: 11px;
+
+            margin: 0 auto 28px;
+
+            padding: 14px;
+
+            border-radius: 20px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(12,31,57,.72),
+                    rgba(3,14,29,.60)
+                );
+
+            border: 1px solid rgba(110,168,255,.13);
+
+            box-shadow:
+                0 15px 40px rgba(0,0,0,.22),
+                inset 0 1px 0 rgba(255,255,255,.035);
+
+            backdrop-filter: blur(14px);
+        }
+
+        /* =========================
+           SERVER BUTTON
+        ========================= */
+
+        .region-btn {
+            min-height: 50px !important;
+
+            padding: 10px 5px !important;
+
+            font-family: 'Orbitron', sans-serif !important;
+
+            font-size: clamp(9px, 1.8vw, 12px) !important;
+
+            font-weight: 700 !important;
+
+            letter-spacing: 1px;
+
+            color: #dceaff !important;
+
+            border-radius: 12px !important;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(255,255,255,.065),
+                    rgba(255,255,255,.018)
+                ) !important;
+
+            border: 1px solid rgba(255,255,255,.10) !important;
+
+            box-shadow:
+                inset 0 1px 0 rgba(255,255,255,.035),
+                0 4px 12px rgba(0,0,0,.18);
+
+            backdrop-filter: blur(8px);
+
+            transition:
+                transform .25s ease,
+                background .25s ease,
+                border-color .25s ease,
+                box-shadow .25s ease,
+                color .25s ease;
+        }
+
+        .region-btn::after {
+            content: "";
+
+            position: absolute;
+
+            width: 160%;
+            height: 160%;
+
+            top: -150%;
+            left: -30%;
+
+            background:
+                linear-gradient(
+                    120deg,
+                    transparent,
+                    rgba(255,255,255,.10),
+                    transparent
+                );
+
+            transform: rotate(25deg);
+
+            transition: .55s ease;
+
+            pointer-events: none;
+        }
+
+        .region-btn:hover::after {
+            top: 120%;
+        }
+
+        .region-btn:hover,
+        .region-btn:active {
+            transform: translateY(-3px) scale(1.015);
+
+            color: #ffffff !important;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(74,120,194,.52),
+                    rgba(19,52,91,.45)
+                ) !important;
+
+            border-color:
+                rgba(110,168,255,.55) !important;
+
+            box-shadow:
+                0 9px 22px rgba(0,0,0,.32),
+                0 0 16px rgba(74,120,194,.18),
+                inset 0 1px 0 rgba(255,255,255,.10);
+        }
+
+        /* =========================
+           COMMON BUTTON
+        ========================= */
+
+        .btn-main {
+            width: 100%;
+
+            min-height: 46px;
+
+            padding: 12px 16px;
+
+            border-radius: 13px;
+
+            border: 1px solid var(--border);
+
+            color: #fff;
+
+            background: rgba(255,255,255,.045);
+
+            font-weight: 800;
+
+            letter-spacing: .4px;
+
+            cursor: pointer;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+
+            text-decoration: none;
+
+            position: relative;
+            overflow: hidden;
+
+            transition:
+                transform .25s ease,
+                background .25s ease,
+                border-color .25s ease,
+                box-shadow .25s ease;
+        }
+
+        .btn-main::after {
+            content: "";
+
+            position: absolute;
+
+            width: 180%;
+            height: 180%;
+
+            top: -140%;
+            left: -40%;
+
+            background: rgba(255,255,255,.07);
+
+            transform: rotate(35deg);
+
+            transition: .55s ease;
+
+            pointer-events: none;
+        }
+
+        .btn-main:hover::after {
+            top: 120%;
+        }
+
+        .btn-main:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-main svg {
+            width: 19px !important;
+            height: 19px !important;
+            min-width: 19px !important;
+            flex-shrink: 0 !important;
+        }
+
+        .btn-outline:hover {
+            background: rgba(74,120,194,.28);
+            border-color: var(--accent);
+            box-shadow: 0 7px 20px rgba(0,0,0,.25);
+        }
+
+        /* =========================
+           REGION VIEW
+        ========================= */
+
+        #regionView {
+            width: 100%;
+            max-width: var(--max-width);
+            margin: 0 auto;
+        }
+
+        .top-bar {
+            width: 100%;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 12px;
+
+            margin-bottom: 22px;
+        }
+
+        .top-bar .btn-main {
+            width: auto;
+            min-width: 120px;
+        }
+
+        /* =========================
+           LOADER
+        ========================= */
+
+        #loader {
+            width: 100%;
+            text-align: center;
+            padding: 45px 10px;
+        }
+
+        .spinner {
+            width: 44px;
+            height: 44px;
+
+            margin: 0 auto 15px;
+
+            border-radius: 50%;
+
+            border: 4px solid rgba(255,255,255,.08);
+            border-left-color: var(--green);
+
+            animation: spin .9s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        #loader span {
+            color: var(--muted);
+
+            font-size: 13px;
+            font-weight: 700;
+
+            letter-spacing: 1px;
+        }
+
+        /* =========================
+           SECTIONS
+        ========================= */
+
+        .section-title {
+            position: relative;
+
+            margin: 30px 0 16px;
+
+            padding: 0 0 10px 12px;
+
+            font-size: clamp(17px, 3vw, 21px);
+
+            color: #fff;
+
+            font-weight: 900;
+
+            letter-spacing: .4px;
+
+            text-transform: uppercase;
+
+            border-bottom: 1px solid var(--border);
+        }
+
+        .section-title::before {
+            content: "";
+
+            position: absolute;
+
+            left: 0;
+            top: 3px;
+
+            width: 4px;
+            height: calc(100% - 13px);
+
+            border-radius: 5px;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    var(--green),
+                    var(--accent)
+                );
+
+            box-shadow:
+                0 0 10px rgba(0,230,118,.3);
+        }
+
+        .cards-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fill, minmax(min(100%, 320px), 1fr));
+
+            gap: 18px;
+        }
+
+        /* =========================
+           DATA CARD
+        ========================= */
+
+        .data-card {
+            overflow: hidden;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(12,32,58,.96),
+                    rgba(6,20,38,.96)
+                );
+
+            border: 1px solid var(--border);
+
+            border-radius: var(--radius);
+
+            box-shadow:
+                0 10px 28px rgba(0,0,0,.32);
+
+            transition:
+                transform .3s ease,
+                border-color .3s ease,
+                box-shadow .3s ease;
+
+            animation: cardIn .45s ease both;
+        }
+
+        .data-card:hover {
+            transform: translateY(-4px);
+
+            border-color: rgba(110,168,255,.25);
+
+            box-shadow:
+                0 15px 35px rgba(0,0,0,.4);
+        }
+
+        @keyframes cardIn {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* =========================
+           IMAGE
+        ========================= */
+
+        .img-wrapper {
+            position: relative;
+
+            width: 100%;
+
+            min-height: 180px;
+
+            background: #0b1729;
+
+            border-bottom: 1px solid var(--border);
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            overflow: hidden;
+        }
+
+        .img-wrapper.shimmer {
+            background-color: #17263a;
+
+            background-image:
+                linear-gradient(
+                    90deg,
+                    #17263a 0%,
+                    #263b55 50%,
+                    #17263a 100%
+                );
+
+            background-size: 700px 100%;
+
+            animation: shimmer 1.5s linear infinite;
+        }
+
+        @keyframes shimmer {
+            from {
+                background-position: -700px 0;
+            }
+            to {
+                background-position: 700px 0;
+            }
+        }
+
+        .data-card img {
+            width: 100%;
+            height: auto;
+
+            max-height: 390px;
+
+            object-fit: contain;
+
+            display: block;
+
+            cursor: pointer;
+
+            opacity: 0;
+
+            transition:
+                opacity .35s ease,
+                transform .35s ease;
+        }
+
+        .data-card img.loaded {
+            opacity: 1;
+        }
+
+        .data-card img:hover {
+            transform: scale(1.015);
+        }
+
+        /* =========================
+           TIME BADGE
+        ========================= */
+
+        .time-badge {
+            position: absolute;
+
+            top: 10px;
+            right: 10px;
+
+            z-index: 3;
+
+            padding: 6px 11px;
+
+            border-radius: 20px;
+
+            font-size: 11px;
+
+            font-weight: 800;
+
+            background: rgba(5,14,27,.86);
+
+            border: 1px solid rgba(255,255,255,.12);
+
+            backdrop-filter: blur(8px);
+
+            letter-spacing: .3px;
+        }
+
+        .time-badge.upcoming {
+            color: #fff;
+        }
+
+        .time-badge.active {
+            color: var(--green);
+
+            border-color: rgba(0,230,118,.25);
+        }
+
+        /* =========================
+           CARD HEADER
+        ========================= */
+
+        .data-card-header {
+            min-height: 58px;
+
+            padding: 14px 15px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 10px;
+
+            cursor: pointer;
+
+            background: rgba(255,255,255,.025);
+
+            border-bottom: 1px solid var(--border);
+
+            transition: background .2s ease;
+        }
+
+        .data-card-header:hover {
+            background: rgba(255,255,255,.06);
+        }
+
+        .data-card-title {
+            flex: 1;
+
+            margin: 0;
+
+            color: #f8fbff;
+
+            font-size: 14px;
+
+            font-weight: 800;
+
+            line-height: 1.45;
+        }
+
+        .toggle-icon {
+            flex-shrink: 0;
+
+            color: var(--muted);
+
+            font-size: 13px;
+
+            transition: transform .3s ease;
+        }
+
+        .data-card-header.open .toggle-icon {
+            transform: rotate(180deg);
+        }
+
+        /* =========================
+           DETAILS
+        ========================= */
+
+        .data-card-details {
+            padding: 15px;
+
+            display: none;
+            flex-direction: column;
+
+            background: rgba(0,0,0,.08);
+        }
+
+        .data-card-details.open {
+            display: flex;
+
+            animation: detailsIn .25s ease;
+        }
+
+        @keyframes detailsIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .data-card-info p {
+            margin-bottom: 9px;
+
+            color: var(--muted);
+
+            font-size: 12.5px;
+
+            line-height: 1.55;
+
+            display: flex;
+            align-items: center;
+
+            gap: 5px;
+
+            flex-wrap: wrap;
+        }
+
+        .data-card-info p strong {
+            color: #f7fbff;
+        }
+
+        .data-card-info a {
+            color: var(--accent-light);
+
+            text-decoration: none;
+
+            word-break: break-all;
+        }
+
+        .data-card-info a:hover {
+            text-decoration: underline;
+        }
+
+        .details-box {
+            max-height: 260px;
+
+            margin: 7px 0 14px;
+
+            padding: 13px;
+
+            overflow-y: auto;
+
+            border-radius: 10px;
+
+            background: #071425;
+
+            border: 1px solid var(--border);
+
+            color: #e2eaf5;
+
+            font-size: 12.5px;
+
+            line-height: 1.65;
+
+            white-space: pre-wrap;
+        }
+
+        /* =========================
+           MINI BUTTON
+        ========================= */
+
+        .btn-mini-action {
+            width: 31px;
+            height: 31px;
+
+            padding: 6px;
+
+            margin-inline-start: 5px;
+
+            display: inline-flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 8px;
+
+            border: 1px solid var(--border);
+
+            background: rgba(255,255,255,.05);
+
+            color: #fff;
+
+            cursor: pointer;
+
+            vertical-align: middle;
+
+            transition: .2s ease;
+        }
+
+        .btn-mini-action:hover {
+            background: rgba(255,255,255,.13);
+            border-color: rgba(255,255,255,.2);
+        }
+
+        .btn-mini-action.success {
+            background: var(--green);
+            color: #03100a;
+            border-color: var(--green);
+        }
+
+        .btn-mini-action svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        /* =========================
+           TABLET
+        ========================= */
+
+        @media (max-width: 800px) {
+            body {
+                padding-top: 25px;
+            }
+
+            .region-grid {
+                grid-template-columns: repeat(5, 1fr);
+                gap: 8px;
+            }
+
+            .cards-grid {
+                gap: 14px;
+            }
+        }
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 600px) {
+            .header-container {
+                margin-bottom: 22px;
+            }
+
+            .region-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 7px;
+                margin-bottom: 22px;
+                padding: 10px;
+            }
+
+            .region-btn {
+                min-height: 43px !important;
+                font-size: 9px !important;
+                padding: 8px 3px !important;
+                letter-spacing: .7px;
+            }
+
+            .top-bar {
+                margin-bottom: 17px;
+            }
+
+            .top-bar .btn-main {
+                min-width: 100px;
+                min-height: 42px;
+                padding: 9px 13px;
+                font-size: 11px;
+            }
+
+            .section-title {
+                margin-top: 22px;
+                margin-bottom: 13px;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+                gap: 13px;
+            }
+
+            .data-card {
+                border-radius: 15px;
+            }
+
+            .img-wrapper {
+                min-height: 150px;
+            }
+
+            .data-card img {
+                max-height: 340px;
+            }
+        }
+
+        /* =========================
+           SMALL MOBILE
+        ========================= */
+
+        @media (max-width: 380px) {
+            body {
+                padding-left: 9px;
+                padding-right: 9px;
+            }
+
+            .region-grid {
+                gap: 5px;
+                padding: 8px;
+            }
+
+            .region-btn {
+                min-height: 40px !important;
+                font-size: 8px !important;
+            }
+
+            .main-title {
+                font-size: .95rem;
+                letter-spacing: 1px;
+            }
+
+            .data-card-title {
+                font-size: 13px;
+            }
+        }
+
+        /* =========================
+           LARGE SCREEN
+        ========================= */
+
+        @media (min-width: 1400px) {
+            .region-grid {
+                max-width: 1000px;
+            }
+
+            .cards-grid {
+                grid-template-columns:
+                    repeat(auto-fill, minmax(340px, 1fr));
+            }
+        }
+
+        /* =========================
+           REDUCED MOTION
+        ========================= */
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: .01ms !important;
+                animation-iteration-count: 1 !important;
+                scroll-behavior: auto !important;
+                transition-duration: .01ms !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- =========================
+         HEADER
+    ========================== -->
+
+    <header class="header-container">
+
+        <h1 class="main-title">
+            FF SỰ KIỆN & CẬP NHẬT
+        </h1>
+
+    </header>
+
+
+    <!-- =========================
+         MAIN VIEW
+    ========================== -->
+
+    <main id="mainView">
+
+        <!-- SERVER LIST -->
+        <div class="region-grid" id="regionGrid"></div>
+
+    </main>
+
+
+    <!-- =========================
+         REGION VIEW
+    ========================== -->
+
+    <section id="regionView" class="hidden">
+
+        <div class="top-bar">
+
+            <button
+                class="btn-main btn-outline"
+                onclick="goBack()"
+                type="button"
+            >
+                <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                >
+                    <line x1="19" y1="12" x2="5" y2="12"></line>
+                    <polyline points="12 19 5 12 12 5"></polyline>
+                </svg>
+
+                <span id="txtBack">
+                    QUAY LẠI
+                </span>
+            </button>
+
+            <button
+                id="globalSwitchBtn"
+                class="btn-main btn-outline hidden"
+                type="button"
+                onclick="toggleGlobalLang()"
+            ></button>
+
+        </div>
+
+
+        <!-- LOADING -->
+
+        <div id="loader">
+
+            <div class="spinner"></div>
+
+            <span id="txtLoader">
+                Đang tải dữ liệu...
+            </span>
+
+        </div>
+
+
+        <!-- CONTENT -->
+
+        <div id="contentArea" class="hidden">
+
+            <div
+                class="section-title"
+                id="splashSectionTitle"
+            >
+                Banner Sự Kiện
+            </div>
+
+            <div
+                class="cards-grid"
+                id="splashGrid"
+            ></div>
+
+
+            <div
+                class="section-title"
+                id="newsSectionTitle"
+            >
+                Thông Báo & Tin Tức
+            </div>
+
+            <div
+                class="cards-grid"
+                id="newsGrid"
+            ></div>
+
+        </div>
+
+    </section>
+
+
+<script>
+
+    /* =========================================
+       SERVICE WORKER
+    ========================================== */
+
+    if ('serviceWorker' in navigator) {
+
+        window.addEventListener('load', () => {
+
+            navigator.serviceWorker
+                .register('./sw.js?v=1.0.3')
+                .catch(error => {
+                    console.log(
+                        'ServiceWorker registration failed:',
+                        error
+                    );
+                });
+
+        });
+
+    }
+
+
+    /* =========================================
+       API
+    ========================================== */
+
+    const API_BASE =
+        "https://kog-api-gateway.vercel.app/api/events";
+
+
+    /* =========================================
+       SERVER LIST
+       GIỮ NGUYÊN 15 SERVER
+    ========================================== */
+
+    const regions = [
+        'PK',
+        'IND',
+        'BR',
+        'ME',
+        'NA',
+        'VN',
+        'ID',
+        'SG',
+        'BD',
+        'TW',
+        'TH',
+        'CIS',
+        'EU',
+        'SAC',
+        'US'
+    ];
+
+
+    /* =========================================
+       SERVER LANGUAGES
+    ========================================== */
+
+    const regionLangs = {
+
+        'ME': ['en', 'ar', 'fr'],
+
+        'NA': ['en', 'es'],
+
+        'US': ['es'],
+
+        'BR': ['pt-br'],
+
+        'IND': ['en', 'hi'],
+
+        'BD': ['en', 'bn'],
+
+        'EU': ['en', 'tr'],
+
+        'PK': ['en'],
+
+        'VN': ['vi'],
+
+        'ID': ['id'],
+
+        'SG': ['en', 'ms'],
+
+        'TW': ['zh-tw'],
+
+        'TH': ['th'],
+
+        'CIS': ['ru'],
+
+        'SAC': ['es']
+
+    };
+
+
+    /* =========================================
+       CACHE
+    ========================================== */
+
+    const cache = {};
+
+    let currentRegion = null;
+
+    let currentGlobalLangIndex = 0;
+
+    let currentLang = 'vi';
+
+
+    /* =========================================
+       PLACEHOLDER
+    ========================================== */
+
+    const placeholderImage =
+        "";
+
+
+    /* =========================================
+       TEXT
+    ========================================== */
+
+    const t = {
+
+        splash: "Banner Sự Kiện",
+
+        news: "Thông Báo & Tin Tức",
+
+        start: "Bắt đầu:",
+
+        end: "Kết thúc:",
+
+        details: "Chi tiết:",
+
+        link: "Liên kết:",
+
+        redirect: "Chuyển hướng:",
+
+        bannerUrl: "URL Banner:",
+
+        switchAll: "Đổi ngôn ngữ:",
+
+        openLink: "Mở liên kết",
+
+        openImg: "Mở ảnh",
+
+        back: "QUAY LẠI",
+
+        loading: "Đang tải dữ liệu...",
+
+        copy: "Sao chép",
+
+        download: "Tải xuống"
+
+    };
+
+
+    const _t = key => t[key];
+
+
+    /* =========================================
+       INITIALIZE
+    ========================================== */
+
+    window.addEventListener('load', () => {
+
+        const grid =
+            document.getElementById('regionGrid');
+
+
+        regions.forEach(region => {
+
+            const btn =
+                document.createElement('button');
+
+            btn.className =
+                'btn-main btn-outline region-btn';
+
+            btn.type = 'button';
+
+            btn.textContent = region;
+
+            btn.setAttribute(
+                'aria-label',
+                'Server ' + region
+            );
+
+            btn.onclick = () =>
+                selectRegion(region);
+
+            grid.appendChild(btn);
+
+        });
+
+    });
+
+
+    /* =========================================
+       BACK
+    ========================================== */
+
+    function goBack() {
+
+        document
+            .getElementById('regionView')
+            .classList.add('hidden');
+
+        document
+            .getElementById('mainView')
+            .classList.remove('hidden');
+
+        currentRegion = null;
+
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+
+    }
+
+
+    /* =========================================
+       FETCH API
+    ========================================== */
+
+    function fetchApi(region, lang) {
+
+        if (!cache[region]) {
+            cache[region] = {};
+        }
+
+        if (cache[region][lang]) {
+            return cache[region][lang];
+        }
+
+        const promise = fetch(
+            `${API_BASE}/${region}?lang=${lang}`,
+            {
+                method: 'GET',
+                cache: 'no-store'
+            }
+        )
+        .then(res => {
+
+            if (!res.ok) {
+                throw new Error(
+                    `HTTP ${res.status}`
+                );
+            }
+
+            return res.json();
+
+        })
+        .catch(err => {
+
+            console.log(
+                `API Error ${region}/${lang}:`,
+                err
+            );
+
+            return null;
+
+        });
+
+
+        cache[region][lang] = promise;
+
+        return promise;
+
+    }
+
+
+    /* =========================================
+       FORMAT TIME
+    ========================================== */
+
+    function formatTimestamp(ts) {
+
+        if (!ts || ts === 0) {
+            return "N/A";
+        }
+
+        const date =
+            new Date(ts * 1000);
+
+        const day =
+            String(date.getDate())
+                .padStart(2, '0');
+
+        const month =
+            date.toLocaleString(
+                'en-US',
+                {
+                    month: 'short'
+                }
+            );
+
+        const year =
+            date.getFullYear();
+
+        let hours =
+            date.getHours();
+
+        const minutes =
+            String(date.getMinutes())
+                .padStart(2, '0');
+
+        const ampm =
+            hours >= 12
+                ? 'PM'
+                : 'AM';
+
+        hours =
+            hours % 12;
+
+        hours =
+            hours || 12;
+
+        return (
+            `${day} ${month} ${year} ` +
+            `${String(hours).padStart(2, '0')}:` +
+            `${minutes} ${ampm}`
+        );
+
+    }
+
+
+    /* =========================================
+       URL CHECK
+    ========================================== */
+
+    function isValidUrl(str) {
+
+        if (!str) {
+            return false;
+        }
+
+        const value =
+            String(str).trim();
+
+        return (
+            value.startsWith('http://') ||
+            value.startsWith('https://')
+        );
+
+    }
+
+
+    /* =========================================
+       URL → LINK
+    ========================================== */
+
+    function makeLinkIfUrl(text) {
+
+        if (isValidUrl(text)) {
+
+            const url =
+                String(text).trim();
+
+            return `
+                <a
+                    href="${url}"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    ${url}
+                </a>
+            `;
+
+        }
+
+        return text;
+
+    }
+
+
+    /* =========================================
+       FREE FIRE TEXT FORMAT
+    ========================================== */
+
+    function formatFreeFireText(text) {
+
+        if (!text) {
+            return "";
+        }
+
+        return String(text)
+
+            .replace(
+                /\[([A-Fa-f0-9]{6})\]([\s\S]*?)\[-\]/g,
+
+                '<span style="color:#$1;font-weight:bold;">$2</span>'
+            )
+
+            .replace(
+                /\[b\]([\s\S]*?)\[\/b\]/gi,
+
+                '<strong>$1</strong>'
+            );
+
+    }
+
+
+    /* =========================================
+       IMAGE URL
+    ========================================== */
+
+    function fixImageUrl(url) {
+
+        if (!url) {
+            return "";
+        }
+
+        return String(url)
+            .trim()
+            .replace(
+                /\.ff_extend$/i,
+                '.jpg'
+            );
+
+    }
+
+
+    /* =========================================
+       TOGGLE CARD
+    ========================================== */
+
+    function toggleCard(element) {
+
+        const card =
+            element.closest('.data-card');
+
+        if (!card) {
+            return;
+        }
+
+        const details =
+            card.querySelector(
+                '.data-card-details'
+            );
+
+        const header =
+            card.querySelector(
+                '.data-card-header'
+            );
+
+        if (details) {
+            details.classList.toggle('open');
+        }
+
+        if (header) {
+            header.classList.toggle('open');
+        }
+
+    }
+
+
+    /* =========================================
+       COPY BUTTON
+    ========================================== */
+
+    function createCopyBtn(url) {
+
+        const safeUrl =
+            String(url)
+                .replace(/\\/g, '\\\\')
+                .replace(/'/g, "\\'");
+
+        return `
+            <button
+                type="button"
+                onclick="copyToClipboard(this, '${safeUrl}')"
+                class="btn-mini-action"
+                title="${_t('copy')}"
+                aria-label="${_t('copy')}"
+            >
+
+                <svg
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    fill="none"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                >
+                    <rect
+                        x="9"
+                        y="9"
+                        width="13"
+                        height="13"
+                        rx="2"
+                    ></rect>
+
+                    <path
+                        d="M5 15H4a2 2 0 0 1-2-2V4
+                           a2 2 0 0 1 2-2h9
+                           a2 2 0 0 1 2 2v1"
+                    ></path>
+
+                </svg>
+
+            </button>
+        `;
+
+    }
+
+
+    /* =========================================
+       DOWNLOAD BUTTON
+    ========================================== */
+
+    function createDownloadBtn(url) {
+
+        const safeUrl =
+            String(url)
+                .replace(/\\/g, '\\\\')
+                .replace(/'/g, "\\'");
+
+        return `
+            <button
+                type="button"
+                onclick="downloadImage(this, '${safeUrl}')"
+                class="btn-mini-action"
+                title="${_t('download')}"
+                aria-label="${_t('download')}"
+            >
+
+                <svg
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    fill="none"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                >
+
+                    <path
+                        d="M21 15v4a2 2 0 0 1-2 2H5
+                           a2 2 0 0 1-2-2v-4"
+                    ></path>
+
+                    <polyline
+                        points="7 10 12 15 17 10"
+                    ></polyline>
+
+                    <line
+                        x1="12"
+                        y1="15"
+                        x2="12"
+                        y2="3"
+                    ></line>
+
+                </svg>
+
+            </button>
+        `;
+
+    }
+
+
+    /* =========================================
+       COPY
+    ========================================== */
+
+    function copyToClipboard(btn, text) {
+
+        navigator.clipboard
+            .writeText(text)
+
+            .then(() => {
+
+                const originalHtml =
+                    btn.innerHTML;
+
+                btn.innerHTML = `
+                    <svg
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        fill="none"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    >
+                        <polyline
+                            points="20 6 9 17 4 12"
+                        ></polyline>
+                    </svg>
+                `;
+
+                btn.classList.add('success');
+
+                setTimeout(() => {
+
+                    btn.innerHTML =
+                        originalHtml;
+
+                    btn.classList.remove(
+                        'success'
+                    );
+
+                }, 1500);
+
+            })
+
+            .catch(err => {
+
+                console.log(
+                    'Copy error:',
+                    err
+                );
+
+            });
+
+    }
+
+
+    /* =========================================
+       DOWNLOAD IMAGE
+    ========================================== */
+
+    async function downloadImage(btn, url) {
+
+        try {
+
+            const response =
+                await fetch(url);
+
+            if (!response.ok) {
+                throw new Error(
+                    'Network response was not ok'
+                );
+            }
+
+            const blob =
+                await response.blob();
+
+            const blobUrl =
+                window.URL.createObjectURL(blob);
+
+            const a =
+                document.createElement('a');
+
+            a.style.display = 'none';
+
+            a.href = blobUrl;
+
+            a.download =
+                url
+                    .split('/')
+                    .pop()
+                    .split('?')[0]
+                || 'image.jpg';
+
+            document.body.appendChild(a);
+
+            a.click();
+
+            window.URL.revokeObjectURL(
+                blobUrl
+            );
+
+            document.body.removeChild(a);
+
+        }
+
+        catch (e) {
+
+            console.log(
+                'Download fallback:',
+                e
+            );
+
+            const a =
+                document.createElement('a');
+
+            a.href = url;
+
+            a.download =
+                'image.jpg';
+
+            a.target =
+                '_blank';
+
+            a.rel =
+                'noopener noreferrer';
+
+            document.body.appendChild(a);
+
+            a.click();
+
+            document.body.removeChild(a);
+
+        }
+
+    }
+
+
+    /* =========================================
+       SELECT SERVER
+    ========================================== */
+
+    async function selectRegion(region) {
+
+        currentRegion =
+            region;
+
+        currentGlobalLangIndex =
+            0;
+
+
+        document
+            .getElementById('mainView')
+            .classList.add('hidden');
+
+
+        document
+            .getElementById('regionView')
+            .classList.remove('hidden');
+
+
+        document
+            .getElementById('contentArea')
+            .classList.add('hidden');
+
+
+        document
+            .getElementById('globalSwitchBtn')
+            .classList.add('hidden');
+
+
+        document
+            .getElementById('loader')
+            .style.display =
+            'block';
+
+
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+
+
+        const langs =
+            regionLangs[region] || ['en'];
+
+
+        await Promise.all(
+            langs.map(lang =>
+                fetchApi(region, lang)
+            )
+        );
+
+
+        const globalBtn =
+            document.getElementById(
+                'globalSwitchBtn'
+            );
+
+
+        if (langs.length > 1) {
+
+            globalBtn
+                .classList
+                .remove('hidden');
+
+            updateGlobalButtonText();
+
+        }
+
+        else {
+
+            globalBtn
+                .classList
+                .add('hidden');
+
+        }
+
+
+        document
+            .getElementById('loader')
+            .style.display =
+            'none';
+
+
+        await renderAllCards(
+            langs[0]
+        );
+
+
+        document
+            .getElementById('contentArea')
+            .classList
+            .remove('hidden');
+
+    }
+
+
+    /* =========================================
+       GLOBAL LANGUAGE BUTTON
+    ========================================== */
+
+    function updateGlobalButtonText() {
+
+        const langs =
+            regionLangs[currentRegion];
+
+        const nextLang =
+            langs[
+                (currentGlobalLangIndex + 1)
+                % langs.length
+            ].toUpperCase();
+
+
+        document
+            .getElementById(
+                'globalSwitchBtn'
+            )
+            .innerHTML = `
+
+                <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    style="
+                        width:18px;
+                        height:18px;
+                    "
+                >
+
+                    <path
+                        d="M4 4v5h.582
+                           m15.356 2A8.001
+                           8.001 0 004.582 9
+                           m0 0H9
+                           m11 11v-5h-.581
+                           m0 0a8.003
+                           8.003 0 01-15.357-2
+                           m15.357 2H15"
+                    ></path>
+
+                </svg>
+
+                <span>
+                    ${_t('switchAll')}
+                    ${nextLang}
+                </span>
+            `;
+
+    }
+
+
+    /* =========================================
+       CHANGE SERVER DATA LANGUAGE
+    ========================================== */
+
+    function toggleGlobalLang() {
+
+        const langs =
+            regionLangs[currentRegion];
+
+        if (langs.length <= 1) {
+            return;
+        }
+
+        currentGlobalLangIndex =
+            (
+                currentGlobalLangIndex + 1
+            ) % langs.length;
+
+
+        updateGlobalButtonText();
+
+
+        renderAllCards(
+            langs[currentGlobalLangIndex]
+        );
+
+    }
+
+
+    /* =========================================
+       TIME BADGE
+    ========================================== */
+
+    function getTimeBadgeHtml(
+        startTime,
+        endTime
+    ) {
+
+        const now =
+            Math.floor(
+                Date.now() / 1000
+            );
+
+
+        if (!startTime || !endTime) {
+            return '';
+        }
+
+
+        let diff = 0;
+
+        let status = '';
+
+
+        if (now < startTime) {
+
+            diff =
+                startTime - now;
+
+            status =
+                'upcoming';
+
+        }
+
+        else if (
+            now >= startTime &&
+            now < endTime
+        ) {
+
+            diff =
+                endTime - now;
+
+            status =
+                'active';
+
+        }
+
+        else {
+
+            return '';
+
+        }
+
+
+        const days =
+            Math.floor(
+                diff / 86400
+            );
+
+
+        const hours =
+            Math.floor(
+                (diff % 86400) / 3600
+            );
+
+
+        const minutes =
+            Math.floor(
+                (diff % 3600) / 60
+            );
+
+
+        let timeString = '';
+
+
+        if (days > 0) {
+
+            timeString =
+                `${days} ngày ${hours} giờ`;
+
+        }
+
+        else {
+
+            timeString =
+                `${hours} giờ ${minutes} phút`;
+
+        }
+
+
+        let text = '';
+
+
+        if (status === 'upcoming') {
+
+            text =
+                `Bắt đầu sau ${timeString}`;
+
+        }
+
+        else {
+
+            text =
+                `Còn ${timeString}`;
+
+        }
+
+
+        return `
+            <div class="time-badge ${status}">
+                ${text}
+            </div>
+        `;
+
+    }
+
+
+    /* =========================================
+       RENDER ALL CARDS
+    ========================================== */
+
+    async function renderAllCards(
+        targetLang
+    ) {
+
+        const data =
+            await cache[
+                currentRegion
+            ][targetLang];
+
+
+        const splashGrid =
+            document.getElementById(
+                'splashGrid'
+            );
+
+
+        const newsGrid =
+            document.getElementById(
+                'newsGrid'
+            );
+
+
+        const splashTitle =
+            document.getElementById(
+                'splashSectionTitle'
+            );
+
+
+        const newsTitle =
+            document.getElementById(
+                'newsSectionTitle'
+            );
+
+
+        splashGrid.innerHTML =
+            '';
+
+        newsGrid.innerHTML =
+            '';
+
+
+        if (!data || !data.success) {
+
+            splashTitle.style.display =
+                'none';
+
+            newsTitle.style.display =
+                'none';
+
+            return;
+
+        }
+
+
+        /* SPLASH */
+
+        if (
+            data.splash_data &&
+            data.splash_data.length > 0
+        ) {
+
+            splashTitle.style.display =
+                'block';
+
+
+            data.splash_data.forEach(
+                (item, index) => {
+
+                    const card =
+                        document.createElement(
+                            'div'
+                        );
+
+                    card.className =
+                        'data-card';
+
+                    card.id =
+                        `splash-card-${index}`;
+
+                    card.innerHTML =
+                        buildSplashInner(
+                            item,
+                            index,
+                            targetLang
+                        );
+
+                    splashGrid.appendChild(
+                        card
+                    );
+
+                }
+            );
+
+        }
+
+        else {
+
+            splashTitle.style.display =
+                'none';
+
+        }
+
+
+        /* NEWS */
+
+        if (
+            data.news_data &&
+            data.news_data.length > 0
+        ) {
+
+            newsTitle.style.display =
+                'block';
+
+
+            data.news_data.forEach(
+                (item, index) => {
+
+                    const card =
+                        document.createElement(
+                            'div'
+                        );
+
+                    card.className =
+                        'data-card';
+
+                    card.id =
+                        `news-card-${index}`;
+
+                    card.innerHTML =
+                        buildNewsInner(
+                            item,
+                            index,
+                            targetLang
+                        );
+
+                    newsGrid.appendChild(
+                        card
+                    );
+
+                }
+            );
+
+        }
+
+        else {
+
+            newsTitle.style.display =
+                'none';
+
+        }
+
+    }
+
+
+    /* =========================================
+       BUILD SPLASH
+    ========================================== */
+
+    function buildSplashInner(
+        item,
+        index,
+        currentLangCode
+    ) {
+
+        let redirectHtml =
+            '';
+
+
+        if (
+            isValidUrl(
+                item.sub_go_pos
+            )
+        ) {
+
+            const safeUrl =
+                item.sub_go_pos.trim();
+
+
+            redirectHtml = `
+
+                <p>
+
+                    <strong>
+                        ${_t('redirect')}
+                    </strong>
+
+                    <a
+                        href="${safeUrl}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        ${_t('openLink')}
+                    </a>
+
+                    ${createCopyBtn(
+                        safeUrl
+                    )}
+
+                </p>
+
+            `;
+
+        }
+
+
+        const fixedUrl =
+            fixImageUrl(
+                item.image_url
+            );
+
+
+        const badgeHtml =
+            getTimeBadgeHtml(
+                item.start_time,
+                item.end_time
+            );
+
+
+        let imgTag = `
+
+            <div class="img-wrapper shimmer">
+
+                ${badgeHtml}
+
+                <img
+                    src="${fixedUrl}"
+                    loading="lazy"
+                    alt="Splash"
+                    onclick="toggleCard(this)"
+
+                    onload="
+                        this.classList.add('loaded');
+                        this.parentElement.classList.remove('shimmer');
+                    "
+
+                    onerror="
+                        this.onerror=null;
+                        this.src='${placeholderImage}';
+                    "
+                >
+
+            </div>
+
+        `;
+
+
+        if (!fixedUrl) {
+
+            imgTag = `
+
+                <div class="img-wrapper shimmer">
+
+                    <img
+                        src="${placeholderImage}"
+                        loading="lazy"
+                        alt="Available Soon"
+                        onclick="toggleCard(this)"
+
+                        onload="
+                            this.classList.add('loaded');
+                            this.parentElement.classList.remove('shimmer');
+                        "
+                    >
+
+                </div>
+
+            `;
+
+        }
+
+
+        const bannerUrlHtml =
+            fixedUrl
+
+                ? `
+
+                    <p>
+
+                        <strong>
+                            ${_t('bannerUrl')}
+                        </strong>
+
+                        <a
+                            href="${fixedUrl}"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            ${_t('openImg')}
+                        </a>
+
+                        ${createDownloadBtn(
+                            fixedUrl
+                        )}
+
+                    </p>
+
+                `
+
+                : '';
+
+
+        const formattedTitle =
+            formatFreeFireText(
+                item.name || 'N/A'
+            );
+
+
+        return `
+
+            ${imgTag}
+
+            <div
+                class="data-card-header"
+                onclick="toggleCard(this)"
+            >
+
+                <p class="data-card-title">
+                    ${formattedTitle}
+                </p>
+
+                <span class="toggle-icon">
+                    ▼
+                </span>
+
+            </div>
+
+
+            <div class="data-card-details">
+
+                <div class="data-card-info">
+
+                    <p>
+
+                        <strong>
+                            ${_t('start')}
+                        </strong>
+
+                        <span
+                            style="
+                                display:inline-block;
+                                direction:ltr;
+                            "
+                        >
+                            ${formatTimestamp(
+                                item.start_time
+                            )}
+                        </span>
+
+                    </p>
+
+
+                    <p>
+
+                        <strong>
+                            ${_t('end')}
+                        </strong>
+
+                        <span
+                            style="
+                                display:inline-block;
+                                direction:ltr;
+                            "
+                        >
+                            ${formatTimestamp(
+                                item.end_time
+                            )}
+                        </span>
+
+                    </p>
+
+
+                    ${bannerUrlHtml}
+
+                    ${redirectHtml}
+
+                </div>
+
+            </div>
+
+        `;
+
+    }
+
+
+    /* =========================================
+       BUILD NEWS
+    ========================================== */
+
+    function buildNewsInner(
+        item,
+        index,
+        currentLangCode
+    ) {
+
+        let detailsHtml =
+            '';
+
+        let linkHtml =
+            '';
+
+
+        /* DESCRIPTION */
+
+        if (
+            item.desc &&
+            String(item.desc).trim() !== "" &&
+            String(item.desc).trim() !== "0"
+        ) {
+
+            if (
+                isValidUrl(
+                    item.desc
+                )
+            ) {
+
+                const safeUrl =
+                    item.desc.trim();
+
+
+                linkHtml += `
+
+                    <p>
+
+                        <strong>
+                            ${_t('link')}
+                        </strong>
+
+                        <a
+                            href="${safeUrl}"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            ${_t('openLink')}
+                        </a>
+
+                        ${createCopyBtn(
+                            safeUrl
+                        )}
+
+                    </p>
+
+                `;
+
+            }
+
+            else {
+
+                const formattedDesc =
+                    formatFreeFireText(
+                        item.desc
+                    );
+
+
+                detailsHtml = `
+
+                    <p>
+                        <strong>
+                            ${_t('details')}
+                        </strong>
+                    </p>
+
+                    <div class="details-box">
+                        ${makeLinkIfUrl(
+                            formattedDesc
+                        )}
+                    </div>
+
+                `;
+
+            }
+
+        }
+
+
+        /* LINK URL */
+
+        if (
+            isValidUrl(item.link_url) &&
+            String(item.link_url).trim() !==
+            String(item.desc).trim()
+        ) {
+
+            const safeUrl =
+                item.link_url.trim();
+
+
+            linkHtml += `
+
+                <p>
+
+                    <strong>
+                        ${_t('link')}
+                    </strong>
+
+                    <a
+                        href="${safeUrl}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        ${_t('openLink')}
+                    </a>
+
+                    ${createCopyBtn(
+                        safeUrl
+                    )}
+
+                </p>
+
+            `;
+
+        }
+
+
+        /* REDIRECT */
+
+        if (
+            isValidUrl(item.sub_go_pos) &&
+            String(item.sub_go_pos).trim() !==
+            String(item.desc).trim() &&
+            String(item.sub_go_pos).trim() !==
+            String(item.link_url).trim()
+        ) {
+
+            const safeUrl =
+                item.sub_go_pos.trim();
+
+
+            linkHtml += `
+
+                <p>
+
+                    <strong>
+                        ${_t('redirect')}
+                    </strong>
+
+                    <a
+                        href="${safeUrl}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        ${_t('openLink')}
+                    </a>
+
+                    ${createCopyBtn(
+                        safeUrl
+                    )}
+
+                </p>
+
+            `;
+
+        }
+
+
+        /* IMAGE */
+
+        const fixedUrl =
+            fixImageUrl(
+                item.image_url
+            );
+
+
+        const badgeHtml =
+            getTimeBadgeHtml(
+                item.start_time,
+                item.end_time
+            );
+
+
+        let imgTag = `
+
+            <div class="img-wrapper shimmer">
+
+                ${badgeHtml}
+
+                <img
+                    src="${fixedUrl}"
+                    loading="lazy"
+                    alt="News"
+                    onclick="toggleCard(this)"
+
+                    onload="
+                        this.classList.add('loaded');
+                        this.parentElement.classList.remove('shimmer');
+                    "
+
+                    onerror="
+                        this.onerror=null;
+                        this.src='${placeholderImage}';
+                    "
+                >
+
+            </div>
+
+        `;
+
+
+        if (!fixedUrl) {
+
+            imgTag = `
+
+                <div class="img-wrapper shimmer">
+
+                    <img
+                        src="${placeholderImage}"
+                        loading="lazy"
+                        alt="Available Soon"
+                        onclick="toggleCard(this)"
+
+                        onload="
+                            this.classList.add('loaded');
+                            this.parentElement.classList.remove('shimmer');
+                        "
+                    >
+
+                </div>
+
+            `;
+
+        }
+
+
+        const bannerUrlHtml =
+            fixedUrl
+
+                ? `
+
+                    <p style="margin-top:8px;">
+
+                        <strong>
+                            ${_t('bannerUrl')}
+                        </strong>
+
+                        <a
+                            href="${fixedUrl}"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            ${_t('openImg')}
+                        </a>
+
+                        ${createDownloadBtn(
+                            fixedUrl
+                        )}
+
+                    </p>
+
+                `
+
+                : '';
+
+
+        const formattedTitle =
+            formatFreeFireText(
+                item.title || 'N/A'
+            );
+
+
+        return `
+
+            ${imgTag}
+
+
+            <div
+                class="data-card-header"
+                onclick="toggleCard(this)"
+            >
+
+                <p class="data-card-title">
+                    ${formattedTitle}
+                </p>
+
+                <span class="toggle-icon">
+                    ▼
+                </span>
+
+            </div>
+
+
+            <div class="data-card-details">
+
+                <div class="data-card-info">
+
+                    <p>
+
+                        <strong>
+                            ${_t('start')}
+                        </strong>
+
+                        <span
+                            style="
+                                display:inline-block;
+                                direction:ltr;
+                            "
+                        >
+                            ${formatTimestamp(
+                                item.start_time
+                            )}
+                        </span>
+
+                    </p>
+
+
+                    <p>
+
+                        <strong>
+                            ${_t('end')}
+                        </strong>
+
+                        <span
+                            style="
+                                display:inline-block;
+                                direction:ltr;
+                            "
+                        >
+                            ${formatTimestamp(
+                                item.end_time
+                            )}
+                        </span>
+
+                    </p>
+
+
+                    ${detailsHtml}
+
+                    ${linkHtml}
+
+                    ${bannerUrlHtml}
+
+                </div>
+
+            </div>
+
+        `;
+
+    }
+
+</script>
+
+</body>
+  </html>
